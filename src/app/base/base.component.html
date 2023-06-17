@@ -1,0 +1,12 @@
+<!-- * Header -->
+<app-header [tabletMode]="tabletMode()" [screenMode]="screenMode()" />
+
+<!-- * Content -->
+<div class="content">
+  <mat-card class="content-inner">
+    <router-outlet #outlet="outlet" />
+  </mat-card>
+</div>
+
+<!-- * Footer -->
+<app-footer [tabletMode]="tabletMode()" />

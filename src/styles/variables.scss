@@ -1,0 +1,38 @@
+// * Default CSS variables
+:root {
+  // Colors (base)
+  --c-black: #000;
+  --c-white: #ffffff;
+  --c-white-2: #f1f1f1;
+  --c-primary: #0000ff;
+  --c-accent: #ffff00;
+  --c-silver: #bdbdbd;
+  --c-warn: #ff0000;
+
+  // Colors (other)
+  --c-black-10: #0000001a;
+  --c-black-30: #0000004d;
+  --c-black-60: #00000099;
+  --c-accent-30: #ffff004d;
+  --c-accent-50: #ffff0080;
+  --c-primary-30: #0000ff4d;
+
+  // Fonts
+  --ff-base: "Cutive Mono", monospace;
+  --ff-merienda: "Merienda", cursive;
+
+  // Transition
+  --t-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Box Shadow
+  --bs-normal: 3px 4px 7px var(--c-black-10);
+}
+
+// * Breakpoints
+$breakpoints: (
+  "small": 320px,
+  "phone": 480px,
+  "tablet": 768px,
+  "desktop": 1024px,
+  "screen": 1200px,
+);

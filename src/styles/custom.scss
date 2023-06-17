@@ -1,0 +1,44 @@
+.mat-mdc-card {
+  color: var(--c-black);
+}
+
+.mat-mdc-card-title {
+  padding: 16px;
+}
+
+.mat-mdc-card-title-group {
+  padding: 16px !important;
+  align-items: center;
+
+  .mat-mdc-card-title {
+    padding: 0;
+  }
+}
+
+.mat-mdc-card-content {
+  padding: 16px !important;
+}
+
+.mat-mdc-card-footer {
+  padding: 16px;
+}
+
+.mat-mdc-raised-button {
+  // color: var(--c-white) !important;
+
+  &.mat-unthemed {
+    color: var(--c-primary) !important;
+  }
+
+  &:disabled {
+    color: var(--c-silver) !important;
+  }
+}
+
+.mat-mdc-outlined-button {
+  color: var(--c-black) !important;
+}
+
+.mat-mdc-icon-button {
+  color: var(--c-black) !important;
+}

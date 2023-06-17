@@ -1,10 +1,17 @@
-import { NgModule } from '@angular/core';
+//  * Base
 import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
-const routes: Routes = [];
+// * Routes
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./base/base.routes'),
+  },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export default class AppRoutingModule {}

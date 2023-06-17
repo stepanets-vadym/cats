@@ -1,0 +1,21 @@
+// * SCSS use
+@use "sass:map";
+
+// * Imports
+@import "src/styles/variables";
+@import "src/styles/media";
+
+// * Styles
+:host {
+  display: block;
+}
+
+mat-toolbar {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+
+  @include media("<=phone") {
+    padding: 0 8px;
+  }
+}
