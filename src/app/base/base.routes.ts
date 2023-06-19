@@ -1,5 +1,5 @@
-// * Components
-import BaseComponent from './base.component';
+// * Base
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 // * Services
 import MainService from './pages/main/main.service';
@@ -10,12 +10,15 @@ import MainResolver from './pages/main/main.resolver';
 export default [
   {
     path: '',
-    component: BaseComponent,
+    loadComponent: () => import('./base.component'),
     children: [
       {
         path: '',
         providers: [MainService],
-        resolve: { catListResolve: () => new MainResolver().resolve() },
+        resolve: {
+          catListResolve: (r: ActivatedRouteSnapshot) =>
+            new MainResolver().resolve(r),
+        },
         loadComponent: () => import('./pages/main/main.component'),
       },
     ],

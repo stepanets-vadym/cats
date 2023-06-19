@@ -1,67 +1,42 @@
 <mat-card-title-group>
   <!--  Title -->
   <mat-card-title> Список наймиліших котиків </mat-card-title>
+
+  <button
+    type="button"
+    color="accent"
+    mat-raised-button
+    class="button-actions"
+    (click)="toggleFilter()"
+  >
+    <span>Фільтри</span>
+  </button>
 </mat-card-title-group>
 
 <!-- * Line -->
 <mat-divider />
 
-<!-- Content -->
-<mat-card-content>
-  <!-- Filter -->
-  <!-- <div #filterBlock class="filters" [class.filters-visible]="isFiltersOpen">
-    <app-filters
-      *ngIf="isFiltersOpen"
-      [formValues]="updateQueryParams"
-      (formValuesEvent)="getFilterValues($event)"
-    />
-  </div> -->
-
-  <table mat-table [dataSource]="catListResolve">
-    <!-- Name -->
-    <ng-container matColumnDef="img">
-      <th mat-header-cell *matHeaderCellDef>Картинка</th>
-      <td mat-cell *matCellDef="let element">
-        <img [src]="element.url" alt="cat" />
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="breeds">
-      <th mat-header-cell *matHeaderCellDef>Порода</th>
-      <td mat-cell *matCellDef="let element">
-        <!-- <a
-            [routerLink]="[element.id]"
-            [matTooltip]="element.name"
-            class="name link"
-            >{{ element.name }}</a
-          > -->
-        <img [src]="element.img" alt="cat" />
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="categories">
-      <th mat-header-cell *matHeaderCellDef>Категорія</th>
-      <td mat-cell *matCellDef="let element">
-        <!-- <a
-            [routerLink]="[element.id]"
-            [matTooltip]="element.name"
-            class="name link"
-            >{{ element.name }}</a
-          > -->
-        <img [src]="element.img" alt="cat" />
-      </td>
-    </ng-container>
+<ng-scrollbar class="scrollbar-full" [autoHeightDisabled]="false">
+  <div class="content">
     <!-- Content -->
-    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
-  </table>
-  <!-- Pagination -->
-  <!-- <mat-paginator
-      [length]="total"
-      [pageSize]="pageSize"
-      [pageIndex]="page - 1"
-      [pageSizeOptions]="countList"
-      (page)="changePage($event)"
-    /> -->
-  <ng-template #emptyBlock>
-    <!-- <div class="empty">{{ "lessons.empty" | translate }}</div> -->
-  </ng-template>
-</mat-card-content>
+    <mat-card-content>
+      <!-- Filter -->
+      <div #filterBlock class="filters" [class.filters-visible]="isFiltersOpen">
+        <app-filters
+          *ngIf="isFiltersOpen"
+          [data]="updateQueryParams"
+          (formValuesEvent)="getFilterValues($event)"
+        />
+      </div>
+      <!-- Items per page -->
+
+      <ul>
+        <li *ngFor="let item of list()">
+          <a class="item">
+            <img [src]="item.url" alt="cat-img" />
+          </a>
+        </li>
+      </ul>
+    </mat-card-content>
+  </div>
+</ng-scrollbar>

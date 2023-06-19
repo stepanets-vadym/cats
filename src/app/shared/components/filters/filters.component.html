@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <div class="inputs">
+    <mat-form-field appearance="outline">
+      <mat-label>Кількість</mat-label>
+      <mat-select formControlName="limit">
+        <mat-option *ngFor="let count of countList" [value]="count">
+          {{ count }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Породи</mat-label>
+      <mat-select formControlName="breeds" multiple>
+        <mat-option *ngFor="let option of breedsList" [value]="option.value">{{
+          option.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button type="button" (click)="submit()" color="primary" mat-raised-button>
+    Фільтр
+  </button>
+</form>

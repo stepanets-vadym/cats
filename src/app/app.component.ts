@@ -17,7 +17,6 @@ export default class AppComponent {
   private readonly store = inject(Store);
   // * Local
   protected loading: boolean = false;
-  protected title: string = 'cats';
 
   constructor() {
     this.changeLoadingSubscription();
@@ -29,8 +28,6 @@ export default class AppComponent {
       .select(loadingSelect)
       .pipe(takeUntilDestroyed())
       .subscribe((loading) => {
-        console.log('loading', loading);
-
         this.loading = loading;
       });
   }

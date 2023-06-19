@@ -1,0 +1,56 @@
+@import "src/styles/media";
+
+:host {
+  display: block;
+}
+
+.content {
+  max-height: calc(100vh - 240px);
+  padding-right: 8px;
+}
+
+.filters {
+  background-color: var(--c-white);
+  transition: var(--t-normal);
+  position: sticky;
+  max-height: 0;
+  z-index: 1;
+
+  &-visible {
+    transition: var(--t-normal);
+    padding-bottom: 8px;
+    max-height: 1000px;
+    padding-top: 16px;
+    top: 0;
+  }
+
+  @include media("<=tablet") {
+    position: static;
+  }
+}
+
+ul {
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  grid-gap: 16px;
+  display: grid;
+}
+
+li {
+  display: flex;
+  height: 100%;
+}
+
+.item {
+  max-height: 324px;
+  max-width: 324px;
+  overflow: hidden;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  width: 100%;
+}
+
+img {
+  object-fit: cover;
+}

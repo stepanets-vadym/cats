@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import AppRoutingModule from './app-routing.module';
-import { RouterOutlet } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 // * NGRX
@@ -24,7 +23,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
-    RouterOutlet,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

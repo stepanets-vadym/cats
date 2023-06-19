@@ -1,10 +1,8 @@
 // * Base
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
   inject,
-  ViewChild,
-  ViewContainerRef,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -39,22 +37,12 @@ import { EBreakpoints } from '../types/breakpoints.types';
 export default class BaseComponent {
   // * Injects
   private readonly breakpointObserver = inject(BreakpointObserver);
-  // private readonly store = inject(Store);
   // * Modes
   protected readonly screenMode = signal(false);
   protected readonly tabletMode = signal(false);
 
-  // * Local
-  protected readonly isShowAnimations = signal(false);
-  protected readonly isAuth = signal(false);
-
   constructor() {
     this.breakpointSubscription();
-  }
-
-  protected prepareRouteTransition(outlet: RouterOutlet) {
-    const data = outlet && (outlet.activatedRouteData as { animation: string });
-    return data.animation;
   }
 
   private breakpointSubscription() {
