@@ -1,4 +1,5 @@
 // * Base
+import { variablesBase } from '../../../../../variables/variables.base';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -30,7 +31,7 @@ export default class FiltersService {
   }
 
   getBreeds() {
-    return this.http.get<TBreed[]>(`https://api.thecatapi.com/v1/breeds`).pipe(
+    return this.http.get<TBreed[]>(`${variablesBase.api}/breeds`).pipe(
       map((response) => {
         return response.map((breed) => ({
           name: breed.name,

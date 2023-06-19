@@ -1,4 +1,5 @@
 // * Base
+import { variablesBase } from '../../../variables/variables.base';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -36,7 +37,7 @@ export default class MainService {
     // headers.append('x-api-key', 'live_mkhVAr4FAYarAWhdsJLH2qwNPEH4pLkWaauUI2C42hn9siY5VLvNyAxMCbFuVq5m')
 
     return this.http.get<TCatsListResponse[]>(
-      ` https://api.thecatapi.com/v1/images/${request}&api_key=live_mkhVAr4FAYarAWhdsJLH2qwNPEH4pLkWaauUI2C42hn9siY5VLvNyAxMCbFuVq5m`
+      `${variablesBase.api}/images/${request}&api_key=live_mkhVAr4FAYarAWhdsJLH2qwNPEH4pLkWaauUI2C42hn9siY5VLvNyAxMCbFuVq5m`
     );
   }
 }
