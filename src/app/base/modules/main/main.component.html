@@ -21,15 +21,13 @@
     <!-- Content -->
     <mat-card-content>
       <!-- Filter -->
-      <div #filterBlock class="filters" [class.filters-visible]="isFiltersOpen">
+      <div #filters class="filters" [class.filters-visible]="isFiltersOpen">
         <app-filters
           *ngIf="isFiltersOpen"
           [data]="updateQueryParams"
-          (formValuesEvent)="getFilterValues($event)"
+          (formSubmitEvent)="getFilterValues($event)"
         />
       </div>
-      <!-- Items per page -->
-
       <ul>
         <li *ngFor="let item of list()">
           <a class="item">

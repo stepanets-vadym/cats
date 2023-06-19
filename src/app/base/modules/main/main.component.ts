@@ -1,7 +1,6 @@
 // * Base
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   ElementRef,
   Component,
   ViewChild,
@@ -22,7 +21,7 @@ import { toggleLoading } from '../../../store/base/base.actions';
 import { Store } from '@ngrx/store';
 
 // * Components
-import FiltersComponent from '../../../shared/components/filters/filters.component';
+import FiltersComponent from './components/filters/filters.component';
 
 // * Services
 import MainService from './main.service';
@@ -63,7 +62,6 @@ export default class MainComponent {
   // * Injects
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly mainService = inject(MainService);
-  private readonly cdr = inject(ChangeDetectorRef);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly store = inject(Store);
@@ -74,8 +72,8 @@ export default class MainComponent {
     }
   }
   // * View childs
-  @ViewChild('filterBlock', { static: false })
-  protected readonly filterBlock?: ElementRef;
+  @ViewChild('filters', { static: false })
+  protected readonly filters?: ElementRef;
   @ViewChild(NgScrollbar) scrollable?: NgScrollbar;
   // * Local
   protected updateQueryParams: TRequestSearchData = {};
@@ -83,9 +81,6 @@ export default class MainComponent {
   protected readonly tabletMode = signal(false);
   protected firstContentLoaded: boolean = false;
   protected isFiltersOpen: boolean = false;
-  protected pageSize: number = 10;
-  protected total: number = 100;
-  protected page: number = 1;
 
   constructor() {
     this.queryParamsSubscription();
@@ -101,13 +96,10 @@ export default class MainComponent {
   }
 
   // * Get filter values
-  protected getFilterValues(formValues: Readonly<TFilterItem>) {
+  protected getFilterValues(data: Readonly<TFilterItem>) {
     this.addQueryParams({
       ...this.updateQueryParams,
-      breed_ids: Array.isArray(formValues.breeds)
-        ? formValues.breeds.join(',')
-        : '',
-      limit: formValues.limit,
+      ...data,
     });
 
     if (this.tabletMode()) {
@@ -120,30 +112,26 @@ export default class MainComponent {
     this.route.queryParams
       .pipe(takeUntilDestroyed())
       .subscribe((params: Readonly<TQueryParams>) => {
-        if (params.breed_ids) {
-          this.updateQueryParams.breed_ids = params.breed_ids;
-        }
+        this.updateQueryParams.breed_ids = params.breed_ids
+          ? params.breed_ids
+          : '';
 
         if (params.limit) {
-          this.updateQueryParams.limit = +params.limit;
+          this.updateQueryParams.limit = params.limit ? +params.limit : 10;
         }
 
         if (this.firstContentLoaded) {
-          this.loadCats(false);
+          this.loadData();
         }
 
         this.firstContentLoaded = true;
       });
   }
 
-  // * Load cats list
-  private loadCats(formMode: Readonly<boolean> = true) {
+  // * Load data list
+  private loadData() {
     this.mainService
-      .search(
-        formMode
-          ? { limit: this.pageSize }
-          : { ...this.updateQueryParams, limit: this.pageSize }
-      )
+      .search({ ...this.updateQueryParams })
       .subscribe((response) => this.readData(response));
   }
 
@@ -159,7 +147,6 @@ export default class MainComponent {
   private readData(response: TCatsListResponse[]) {
     this.list.set(response);
     this.toggleLoading(false);
-    // this.cdr.detectChanges();
   }
 
   private toggleLoading(payload: Readonly<boolean>) {
@@ -171,13 +158,12 @@ export default class MainComponent {
     this.router.navigate(['/'], {
       queryParams: this.updateQueryParams,
     });
-    this.toggleLoading(true);
   }
 
   // * Scroll to filters
   private scrollToFilters() {
-    if (this.filterBlock) {
-      this.scrollable?.scrollToElement(this.filterBlock);
+    if (this.filters) {
+      this.scrollable?.scrollToElement(this.filters);
     }
   }
 }

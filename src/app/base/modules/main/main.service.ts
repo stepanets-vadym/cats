@@ -2,6 +2,10 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// * NGXS
+import { toggleLoading } from '../../../store/base/base.actions';
+import { Store } from '@ngrx/store';
+
 // * Types
 import {
   TCatsListResponse,
@@ -12,8 +16,11 @@ import {
 export default class MainService {
   // * Injects
   private readonly http = inject(HttpClient);
+  private readonly store = inject(Store);
 
   search(data: Readonly<TRequestSearchData>) {
+    this.store.dispatch(toggleLoading({ payload: true }));
+
     let request = `search?limit=${data.limit}`;
 
     if (data.has_breeds) {

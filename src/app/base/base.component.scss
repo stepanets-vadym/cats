@@ -7,6 +7,14 @@
   background-color: var(--c-silver);
 }
 
+.progress {
+  position: fixed;
+  z-index: 31;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
 .content {
   height: calc(100vh - 128px);
   position: relative;

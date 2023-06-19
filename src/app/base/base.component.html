@@ -1,5 +1,13 @@
+<!-- * Progress -->
+<mat-progress-bar
+  color="accent"
+  *ngIf="loading"
+  class="progress"
+  mode="indeterminate"
+/>
+
 <!-- * Header -->
-<app-header [tabletMode]="tabletMode()" [screenMode]="screenMode()" />
+<app-header />
 
 <!-- * Content -->
 <div class="content">
@@ -9,4 +17,4 @@
 </div>
 
 <!-- * Footer -->
-<app-footer [tabletMode]="tabletMode()" />
+<app-footer />

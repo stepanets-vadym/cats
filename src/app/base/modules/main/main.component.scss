@@ -12,15 +12,18 @@
 .filters {
   background-color: var(--c-white);
   transition: var(--t-normal);
+  pointer-events: none;
   position: sticky;
   max-height: 0;
+  opacity: 0;
   z-index: 1;
 
   &-visible {
-    transition: var(--t-normal);
+    pointer-events: all;
     padding-bottom: 8px;
     max-height: 1000px;
     padding-top: 16px;
+    opacity: 1;
     top: 0;
   }
 
@@ -29,11 +32,34 @@
   }
 }
 
+mat-card-title {
+  margin-right: 8px;
+  line-height: 1;
+
+  @include media("<=tablet") {
+    font-size: 18px;
+  }
+
+  @include media("<=phone") {
+    font-size: 16px;
+  }
+}
+
 ul {
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   grid-gap: 16px;
   display: grid;
+
+  @include media("<=tablet") {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media("<=phone") {
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+    grid-gap: 8px;
+  }
 }
 
 li {
@@ -45,9 +71,9 @@ li {
   max-height: 324px;
   max-width: 324px;
   overflow: hidden;
-  height: 100%;
   padding: 16px;
   display: flex;
+  height: 100%;
   width: 100%;
 }
 

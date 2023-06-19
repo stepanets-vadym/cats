@@ -1,18 +1,14 @@
 // * Base
 import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormsModule,
-  FormGroup,
-} from '@angular/forms';
-import {
   ChangeDetectionStrategy,
-  Component,
   EventEmitter,
+  Component,
   inject,
-  Input,
   Output,
+  Input,
 } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormConfig } from '../../../../../config/form.config';
 
 // * Common
 import { CommonModule } from '@angular/common';
@@ -28,7 +24,8 @@ const material = [MatFormFieldModule, MatButtonModule, MatSelectModule];
 import FiltersService from './filters.service';
 
 // * Types
-import { TFilterItem } from '../../../types/filters.types';
+import { TRequestSearchData } from '../../../../../types/base.types';
+import { TFilterItem } from '../../../../../types/filters.types';
 
 @Component({
   standalone: true,
@@ -36,52 +33,34 @@ import { TFilterItem } from '../../../types/filters.types';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [FiltersService],
   imports: [...material, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export default class FiltersComponent {
+export default class FiltersComponent extends FormConfig {
   // * Injects
   private readonly filtersService = inject(FiltersService);
-  private readonly fb = inject(FormBuilder);
   // * Outputs
-  @Output() readonly formValuesEvent = new EventEmitter<TFilterItem>();
+  @Output() readonly formSubmitEvent = new EventEmitter<TFilterItem>();
   // * Inputs
-  // TODO
-  @Input({ required: true }) set data(data: any) {
+  @Input({ required: true }) set data(data: TRequestSearchData) {
     if (data) {
       this.form.patchValue(data);
     }
   }
   // * Local
-  // TODO
-  protected breedsList: any[] = [
-    {
-      name: 'Усі',
-      value: '',
-    },
-  ];
-  protected form!: FormGroup;
-  protected readonly countList = [10, 25, 50, 100] as const;
+  protected readonly countList = [10, 25, 50, 100];
 
-  constructor() {
-    this.getBreedList();
-    this.initForm();
+  get breedsList() {
+    return this.filtersService.breedsList;
   }
 
   initForm() {
     this.form = this.fb.group({
-      breeds: [''],
-      limit: [this.countList[0]],
-    });
-  }
-
-  protected getBreedList() {
-    this.filtersService.getBreeds().subscribe((response) => {
-      this.breedsList = [...this.breedsList, ...response];
+      breed_ids: [''],
+      limit: [10],
     });
   }
 
   protected submit() {
-    this.formValuesEvent.emit(this.form.value);
+    this.formSubmitEvent.emit(this.form.value);
   }
 }

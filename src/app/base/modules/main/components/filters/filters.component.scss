@@ -1,0 +1,41 @@
+@import "src/styles/media";
+
+:host {
+  display: flex;
+}
+
+form {
+  justify-content: space-between;
+  align-items: baseline;
+  display: flex;
+  width: 100%;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+  }
+}
+.inputs {
+  align-items: center;
+  display: flex;
+  width: 100%;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+  }
+}
+
+mat-form-field {
+  margin-right: 16px;
+  width: 100%;
+
+  @include media("<=tablet") {
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
+}
+
+button {
+  @include media("<=tablet") {
+    width: 100%;
+  }
+}

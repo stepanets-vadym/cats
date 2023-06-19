@@ -2,10 +2,11 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 // * Services
-import MainService from './pages/main/main.service';
+import FiltersService from './modules/main/components/filters/filters.service';
+import MainService from './modules/main/main.service';
 
 // * Resolvers
-import MainResolver from './pages/main/main.resolver';
+import MainResolver from './modules/main/main.resolver';
 
 export default [
   {
@@ -14,12 +15,12 @@ export default [
     children: [
       {
         path: '',
-        providers: [MainService],
+        providers: [MainService, FiltersService],
         resolve: {
           catListResolve: (r: ActivatedRouteSnapshot) =>
             new MainResolver().resolve(r),
         },
-        loadComponent: () => import('./pages/main/main.component'),
+        loadComponent: () => import('./modules/main/main.component'),
       },
     ],
   },

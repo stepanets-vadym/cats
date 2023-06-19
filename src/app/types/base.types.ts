@@ -2,9 +2,9 @@ export type TCatsListResponse = {
   categories?: TCatCategoty[];
   height: number;
   width: number;
+  breeds?: [];
   url: string;
   id: string;
-  breeds?: [];
 };
 
 export type TCatCategoty = {
